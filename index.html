@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Nexus Fighters</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 1: INTRO / LOGO SPLASH             -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-intro" class="screen active">
+    <div class="intro-particles" id="introParticles"></div>
+    <div class="intro-content">
+      <div class="logo-ring"></div>
+      <div class="logo-ring ring2"></div>
+      <h1 class="logo-title">NEXUS</h1>
+      <h2 class="logo-sub">FIGHTERS</h2>
+      <p class="logo-credit">Built by <span>Saurav</span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 2: MAIN LOBBY                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-lobby" class="screen">
+    <!-- Background layers -->
+    <div class="lobby-bg">
+      <div class="lobby-layer l1"></div>
+      <div class="lobby-layer l2"></div>
+      <div class="lobby-layer l3"></div>
+      <div class="lobby-particles" id="lobbyParticles"></div>
+    </div>
+
+    <!-- TOP HUD -->
+    <div class="lobby-top">
+      <div class="currency-block">
+        <div class="currency-item">
+          <span class="currency-icon coin">🪙</span>
+          <span class="currency-val" id="coinDisplay">0</span>
+        </div>
+        <div class="currency-item">
+          <span class="currency-icon gem">💎</span>
+          <span class="currency-val" id="gemDisplay">0</span>
+        </div>
+      </div>
+      <div class="lobby-title-bar">
+        <span class="title-nexus">NEXUS</span>
+        <span class="title-fighters">FIGHTERS</span>
+      </div>
+      <div class="player-tag">
+        <span class="player-rank">⚡</span>
+        <span id="playerNameDisplay">Saurav</span>
+      </div>
+    </div>
+
+    <!-- LEFT PANEL -->
+    <div class="lobby-left">
+      <button class="menu-btn active-btn" id="btnCharacter">
+        <span class="btn-icon">⚔️</span>
+        <span class="btn-label">Character</span>
+      </button>
+      <button class="menu-btn" id="btnInventory">
+        <span class="btn-icon">🎒</span>
+        <span class="btn-label">Inventory</span>
+        <span class="coming-soon">Soon</span>
+      </button>
+      <button class="menu-btn" id="btnSkills">
+        <span class="btn-icon">✨</span>
+        <span class="btn-label">Skills</span>
+        <span class="coming-soon">Soon</span>
+      </button>
+    </div>
+
+    <!-- CENTER CHARACTER -->
+    <div class="lobby-center">
+      <div class="character-platform">
+        <div class="platform-glow"></div>
+        <div class="platform-ring"></div>
+        <!-- Character drawn on canvas -->
+        <canvas id="lobbyCharCanvas" width="160" height="220"></canvas>
+        <div class="char-name-tag">
+          <span class="char-name">SAURAV</span>
+          <span class="char-class">NEXUS WARRIOR</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="lobby-right">
+      <div class="friends-panel">
+        <div class="panel-title">⚡ Friends</div>
+        <div class="friend-list">
+          <div class="friend-item online">
+            <div class="friend-avatar">👤</div>
+            <div class="friend-info">
+              <span class="friend-name">Fighter_X</span>
+              <span class="friend-status">Online</span>
+            </div>
+          </div>
+          <div class="friend-item offline">
+            <div class="friend-avatar">👤</div>
+            <div class="friend-info">
+              <span class="friend-name">Shadow99</span>
+              <span class="friend-status">Offline</span>
+            </div>
+          </div>
+          <div class="friend-item online">
+            <div class="friend-avatar">👤</div>
+            <div class="friend-info">
+              <span class="friend-name">NeonBlade</span>
+              <span class="friend-status">In Battle</span>
+            </div>
+          </div>
+        </div>
+        <button class="friend-btn" id="btnAddFriend">➕ Add Friend</button>
+        <button class="friend-btn invite" id="btnInviteFriend">📨 Invite</button>
+      </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="lobby-bottom">
+      <button class="mode-btn" id="btnMode">
+        <span class="mode-icon">⚔️</span>
+        <span class="mode-text">1v1 DUEL</span>
+        <span class="mode-arrow">▼</span>
+      </button>
+      <button class="start-btn" id="btnStart">
+        <span class="start-glow"></span>
+        <span class="start-text">FIGHT!</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 3: LOADING                         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-loading" class="screen">
+    <div class="loading-bg"></div>
+    <div class="loading-content">
+      <div class="loading-logo">NEXUS FIGHTERS</div>
+      <div class="loading-subtitle">Entering the Arena...</div>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+      <div class="loading-tip">TIP: Master the combo system to deal bonus damage!</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  SCREEN 4: GAME / ARENA                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-game" class="screen">
+    <!-- Game canvas -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- TOP HUD -->
+    <div class="game-hud">
+      <div class="health-section p1-section">
+        <span class="fighter-label">SAURAV</span>
+        <div class="health-bar-wrap">
+          <div class="health-bar p1-bar" id="p1Health"></div>
+          <div class="health-shine"></div>
+        </div>
+      </div>
+      <div class="hud-center">
+        <button class="settings-btn" id="btnSettings">⚙️</button>
+        <div class="round-timer" id="roundTimer">99</div>
+      </div>
+      <div class="health-section p2-section">
+        <div class="health-bar-wrap">
+          <div class="health-bar p2-bar" id="p2Health"></div>
+          <div class="health-shine"></div>
+        </div>
+        <span class="fighter-label">ENEMY</span>
+      </div>
+    </div>
+
+    <!-- MOBILE CONTROLS -->
+    <div class="controls-overlay">
+      <!-- LEFT: Movement -->
+      <div class="controls-left">
+        <div class="dpad">
+          <button class="ctrl-btn move-btn" id="btnLeft" data-action="left">◀</button>
+          <button class="ctrl-btn jump-btn" id="btnJump" data-action="jump">▲</button>
+          <button class="ctrl-btn move-btn" id="btnRight" data-action="right">▶</button>
+        </div>
+      </div>
+      <!-- RIGHT: Attack -->
+      <div class="controls-right">
+        <button class="ctrl-btn attack-btn punch-btn" id="btnPunch" data-action="punch">P</button>
+        <button class="ctrl-btn attack-btn kick-btn" id="btnKick" data-action="kick">K</button>
+        <button class="ctrl-btn attack-btn skill-btn" id="btnSkill" data-action="skill">⚡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  OVERLAY: SETTINGS MENU                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="overlay-settings" class="overlay hidden">
+    <div class="overlay-panel">
+      <div class="overlay-title">⚙️ PAUSED</div>
+      <button class="overlay-btn" id="btnResume">▶ Resume</button>
+      <button class="overlay-btn" id="btnRestart">↺ Restart</button>
+      <button class="overlay-btn danger" id="btnQuit">🏠 Quit to Lobby</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--  OVERLAY: KO / WINNER                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="overlay-ko" class="overlay hidden">
+    <div class="overlay-panel ko-panel">
+      <div class="ko-text" id="koText">K.O!</div>
+      <div class="winner-text" id="winnerText">SAURAV WINS!</div>
+      <div class="ko-stars">⭐⭐⭐</div>
+      <button class="overlay-btn glow-btn" id="btnRematch">↺ Rematch</button>
+      <button class="overlay-btn" id="btnReturnLobby">🏠 Lobby</button>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
